@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import lotteryList from "@/components/lotteryList";
+import lotteryList from "@/components/LotteryList";
 import axios from 'axios';
 export default {
   name: "Home",
@@ -20,7 +20,7 @@ export default {
   mounted: function(){
     let self = this;
     axios
-      .get('https://localhost:5001/lottery')
+      .get('http://localhost:5000/lottery')
       .then(function (response) {
         console.log(response);
         self.lotteryCollection = response.data;

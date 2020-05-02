@@ -102,7 +102,7 @@ export default {
     let lotteryId = this.$router.history.current.params.id;
     let self = this;
     axios
-      .get(`https://localhost:5001/lottery/${lotteryId}`)
+      .get(`http://localhost:5000/lottery/${lotteryId}`)
       .then(function (response) {
         self.lottery = response.data;
       })
@@ -111,7 +111,7 @@ export default {
       });
 
     axios
-      .get(`https://localhost:5001/lottery/${lotteryId}/participants`)
+      .get(`http://localhost:5000/lottery/${lotteryId}/participants`)
       .then(function (response) {
         console.log(response.data);
         self.lotteryParticipants = response.data;

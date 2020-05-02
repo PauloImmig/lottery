@@ -1,0 +1,19 @@
+# Please refer https://aka.ms/HTTPSinContainer on how to setup an https developer certificate for your ASP .NET Core service.
+version: '3.4'
+
+services:
+  lottery-api:
+    image: lottery-api
+    build:
+      context: .
+      dockerfile: src/Lottery.Api/Dockerfile
+    ports:
+      - "5000:80"
+      - "5001:443"
+  lottery-web:
+    image: lottery-web
+    build:
+      context: .
+      dockerfile: src/web/Dockerfile
+    ports:
+      - "8080:80"
