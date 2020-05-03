@@ -3,14 +3,22 @@ version: '3.4'
 
 services:
   lottery:
-    image: lottery
+    image: lottery-api
     build:
       context: .
       dockerfile: src/Lottery.Api/Dockerfile
     ports:
-      - 80
+      - "5000:80"
+      - "5001:443"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
     volumes:
       - ~/.vsdbg:/remote_debugger:rw
+  lottery-web:
+    image: lottery-web
+    build:
+      context: .
+      dockerfile: src/web/Dockerfile
+    ports:
+      - "8080:80"
