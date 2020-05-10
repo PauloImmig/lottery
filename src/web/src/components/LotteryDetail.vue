@@ -54,7 +54,9 @@
 </template>
 
 <script>
-import axios from "axios";
+import Repository from "../repositories/repositoryFactory";
+const LotteryRepository = Repository.get("lotteries");
+
 import {
   mdbRow,
   mdbCol,
@@ -97,28 +99,21 @@ export default {
       lotteryParticipants:[]
     };
   },
-  mounted: function(){
-    console.log(this.$router);
+  methods: {
+    getLottery: async function(lotteryId) {
+      const { data } = await LotteryRepository.get(lotteryId);
+      return data;
+    },
+    getLotteryParticipants: async function(lotteryId) {
+      const { data } = await LotteryRepository.getParticipants(lotteryId);
+      return data;
+    }
+  },
+  mounted: async function(){
     let lotteryId = this.$router.history.current.params.id;
     let self = this;
-    axios
-      .get(`http://localhost:5000/lottery/${lotteryId}`)
-      .then(function (response) {
-        self.lottery = response.data;
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-
-    axios
-      .get(`http://localhost:5000/lottery/${lotteryId}/participants`)
-      .then(function (response) {
-        console.log(response.data);
-        self.lotteryParticipants = response.data;
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    self.lottery = await this.getLottery(lotteryId);
+    self.lotteryParticipants = await this.getLotteryParticipants(lotteryId);
   }
 };
 </script>

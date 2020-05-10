@@ -5,8 +5,10 @@
 </template>
 
 <script>
+import Repository from "../repositories/repositoryFactory";
+const LotteryRepository = Repository.get("lotteries");
+
 import lotteryList from "@/components/LotteryList";
-import axios from 'axios';
 export default {
   name: "Home",
   components: {
@@ -17,17 +19,14 @@ export default {
       lotteryCollection: []
     }
   },
-  mounted: function(){
-    let self = this;
-    axios
-      .get('http://localhost:5000/lottery')
-      .then(function (response) {
-        console.log(response);
-        self.lotteryCollection = response.data;
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+  methods: {
+    getLotteries: async function() {
+      const { data } = await LotteryRepository.get();
+      return data;
+    },
+  },
+  mounted: async function(){
+    this.lotteryCollection = await this.getLotteries();
   }
 };
 </script>
