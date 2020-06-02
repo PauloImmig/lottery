@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -84,6 +85,12 @@ namespace lottery.Api.Controllers
                 participants[i].AddRandomNumbers(5);
             }
             return Ok(participants);
+        }
+
+        [HttpPost("Upload")]
+        public IActionResult Upload([FromForm(Name = "files")] List<IFormFile> files)
+        {
+            return Ok(files.Count);
         }
     }
 }
