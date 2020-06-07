@@ -1,19 +1,21 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{72D681D0-5379-4AD1-90BC-77B7C92329A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lottery.Api", "src\Lottery.Api\lottery.Api.csproj", "{32F3AA05-E389-4230-923B-364E3A947A8D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "lottery.Api", "src\Lottery.Api\lottery.Api.csproj", "{32F3AA05-E389-4230-923B-364E3A947A8D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lottery.Infra.CrossCutting", "Lottery.Infra.CrossCutting", "{65776705-21AB-4841-838D-65E4E0E2B648}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lottery.Infra.CrossCutting.Storage.Abstractions", "src\Lottery.Infra.CrossCutting\Lottery.Infra.CrossCutting.Storage.Abstractions\Lottery.Infra.CrossCutting.Storage.Abstractions.csproj", "{67ED3CD7-A813-4DB3-9F57-9559F7DD17B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lottery.Infra.CrossCutting.Storage.Abstractions", "src\Lottery.Infra.CrossCutting\Lottery.Infra.CrossCutting.Storage.Abstractions\Lottery.Infra.CrossCutting.Storage.Abstractions.csproj", "{67ED3CD7-A813-4DB3-9F57-9559F7DD17B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lottery.Infra.CrossCutting.Storage.Implementation", "src\Lottery.Infra.CrossCutting\Lottery.Infra.CrossCutting.Storage.Implementation\Lottery.Infra.CrossCutting.Storage.Implementation.csproj", "{A95668A1-2887-4D95-811A-821E57A6B677}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lottery.Infra.CrossCutting.Storage", "src\Lottery.Infra.CrossCutting\Lottery.Infra.CrossCutting.Storage\Lottery.Infra.CrossCutting.Storage.csproj", "{A95668A1-2887-4D95-811A-821E57A6B677}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lottery.Infra.CrossCutting.Storage.Providers", "src\Lottery.Infra.CrossCutting\Lottery.Infra.CrossCutting.Storage.Providers\Lottery.Infra.CrossCutting.Storage.Providers.csproj", "{CCD02806-B4DC-4882-8DC8-EDD3E519DA90}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lottery.Infra.CrossCutting.Storage.S3", "src\Lottery.Infra.CrossCutting\Lottery.Infra.CrossCutting.Storage.S3\Lottery.Infra.CrossCutting.Storage.S3.csproj", "{7BE47DE5-E1A3-41C2-96E7-42DB04A38C79}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lottery.Infra.CrossCuting.Storage.Tests", "tests\Lottery.Infra.CrossCuting.Storage.Tests\Lottery.Infra.CrossCuting.Storage.Tests.csproj", "{08899082-5A91-446F-9600-0154926C210F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,9 +25,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{32F3AA05-E389-4230-923B-364E3A947A8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -64,24 +63,42 @@ Global
 		{A95668A1-2887-4D95-811A-821E57A6B677}.Release|x64.Build.0 = Release|Any CPU
 		{A95668A1-2887-4D95-811A-821E57A6B677}.Release|x86.ActiveCfg = Release|Any CPU
 		{A95668A1-2887-4D95-811A-821E57A6B677}.Release|x86.Build.0 = Release|Any CPU
-		{CCD02806-B4DC-4882-8DC8-EDD3E519DA90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CCD02806-B4DC-4882-8DC8-EDD3E519DA90}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CCD02806-B4DC-4882-8DC8-EDD3E519DA90}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{CCD02806-B4DC-4882-8DC8-EDD3E519DA90}.Debug|x64.Build.0 = Debug|Any CPU
-		{CCD02806-B4DC-4882-8DC8-EDD3E519DA90}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{CCD02806-B4DC-4882-8DC8-EDD3E519DA90}.Debug|x86.Build.0 = Debug|Any CPU
-		{CCD02806-B4DC-4882-8DC8-EDD3E519DA90}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CCD02806-B4DC-4882-8DC8-EDD3E519DA90}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CCD02806-B4DC-4882-8DC8-EDD3E519DA90}.Release|x64.ActiveCfg = Release|Any CPU
-		{CCD02806-B4DC-4882-8DC8-EDD3E519DA90}.Release|x64.Build.0 = Release|Any CPU
-		{CCD02806-B4DC-4882-8DC8-EDD3E519DA90}.Release|x86.ActiveCfg = Release|Any CPU
-		{CCD02806-B4DC-4882-8DC8-EDD3E519DA90}.Release|x86.Build.0 = Release|Any CPU
+		{7BE47DE5-E1A3-41C2-96E7-42DB04A38C79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BE47DE5-E1A3-41C2-96E7-42DB04A38C79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BE47DE5-E1A3-41C2-96E7-42DB04A38C79}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7BE47DE5-E1A3-41C2-96E7-42DB04A38C79}.Debug|x64.Build.0 = Debug|Any CPU
+		{7BE47DE5-E1A3-41C2-96E7-42DB04A38C79}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7BE47DE5-E1A3-41C2-96E7-42DB04A38C79}.Debug|x86.Build.0 = Debug|Any CPU
+		{7BE47DE5-E1A3-41C2-96E7-42DB04A38C79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BE47DE5-E1A3-41C2-96E7-42DB04A38C79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BE47DE5-E1A3-41C2-96E7-42DB04A38C79}.Release|x64.ActiveCfg = Release|Any CPU
+		{7BE47DE5-E1A3-41C2-96E7-42DB04A38C79}.Release|x64.Build.0 = Release|Any CPU
+		{7BE47DE5-E1A3-41C2-96E7-42DB04A38C79}.Release|x86.ActiveCfg = Release|Any CPU
+		{7BE47DE5-E1A3-41C2-96E7-42DB04A38C79}.Release|x86.Build.0 = Release|Any CPU
+		{08899082-5A91-446F-9600-0154926C210F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08899082-5A91-446F-9600-0154926C210F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08899082-5A91-446F-9600-0154926C210F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{08899082-5A91-446F-9600-0154926C210F}.Debug|x64.Build.0 = Debug|Any CPU
+		{08899082-5A91-446F-9600-0154926C210F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{08899082-5A91-446F-9600-0154926C210F}.Debug|x86.Build.0 = Debug|Any CPU
+		{08899082-5A91-446F-9600-0154926C210F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08899082-5A91-446F-9600-0154926C210F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08899082-5A91-446F-9600-0154926C210F}.Release|x64.ActiveCfg = Release|Any CPU
+		{08899082-5A91-446F-9600-0154926C210F}.Release|x64.Build.0 = Release|Any CPU
+		{08899082-5A91-446F-9600-0154926C210F}.Release|x86.ActiveCfg = Release|Any CPU
+		{08899082-5A91-446F-9600-0154926C210F}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{32F3AA05-E389-4230-923B-364E3A947A8D} = {72D681D0-5379-4AD1-90BC-77B7C92329A0}
 		{65776705-21AB-4841-838D-65E4E0E2B648} = {72D681D0-5379-4AD1-90BC-77B7C92329A0}
 		{67ED3CD7-A813-4DB3-9F57-9559F7DD17B3} = {65776705-21AB-4841-838D-65E4E0E2B648}
 		{A95668A1-2887-4D95-811A-821E57A6B677} = {65776705-21AB-4841-838D-65E4E0E2B648}
-		{CCD02806-B4DC-4882-8DC8-EDD3E519DA90} = {65776705-21AB-4841-838D-65E4E0E2B648}
+		{7BE47DE5-E1A3-41C2-96E7-42DB04A38C79} = {65776705-21AB-4841-838D-65E4E0E2B648}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2B9A2C29-C52C-4770-910F-9A3C74D188C0}
 	EndGlobalSection
 EndGlobal
