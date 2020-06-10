@@ -32,5 +32,10 @@ namespace Lottery.Infra.CrossCutting.Storage.Abstractions
         {
             return Task.FromResult(Enumerable.Empty<FileStorageListItem>());
         }
+
+        public Task<IEnumerable<FileStorageListItem>> GetFileList(CancellationToken cancelationToken = default)
+        {
+            return GetFileList(string.Empty, cancelationToken);
+        }
     }
 }

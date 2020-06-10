@@ -64,7 +64,7 @@ namespace Lottery.Infra.CrossCutting.Storage.S3
         public async Task<IEnumerable<FileStorageListItem>> GetFileList(string prefix, CancellationToken cancelationToken = default)
         {
             var result = new List<FileStorageListItem>();
-            string continuationToken = String.Empty;
+            string continuationToken;
             do
             {
 
@@ -75,15 +75,27 @@ namespace Lottery.Infra.CrossCutting.Storage.S3
                 };
 
                 var listObjectResponse = await _amazonS3Client.ListObjectsV2Async(listObjectRequest, cancelationToken);
-                result.AddRange(listObjectResponse.S3Objects.Select(x => new FileStorageListItem
-                {
-                    FileName = x.Key.Split('/').Last(),
-                    FileNameWithFullPath = x.Key,
-                    Size = x.Size
-                }));
+                IEnumerable<FileStorageListItem> storageItemsList = ConvertListObjectsV2ResponseToFileStorageList(listObjectResponse);
+
+                result.AddRange(storageItemsList);
                 continuationToken = listObjectResponse.ContinuationToken;
             } while (!string.IsNullOrEmpty(continuationToken));
             return result;
+        }
+
+        private static IEnumerable<FileStorageListItem> ConvertListObjectsV2ResponseToFileStorageList(ListObjectsV2Response listObjectResponse)
+        {
+            return listObjectResponse.S3Objects.Where(x => x.Size > 0).Select(x => new FileStorageListItem
+            {
+                FileName = x.Key.Split('/').Last(),
+                FileNameWithFullPath = x.Key,
+                Size = x.Size
+            });
+        }
+
+        public Task<IEnumerable<FileStorageListItem>> GetFileList(CancellationToken cancelationToken = default)
+        {
+            return GetFileList(string.Empty, cancelationToken);
         }
     }
 }

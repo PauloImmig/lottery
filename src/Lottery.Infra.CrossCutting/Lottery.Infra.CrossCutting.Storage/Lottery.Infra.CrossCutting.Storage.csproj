@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Lottery.Infra.CrossCutting.Storage.Abstractions\Lottery.Infra.CrossCutting.Storage.Abstractions.csproj" />
+    <ProjectReference Include="..\Lottery.Infra.CrossCutting.Storage.S3\Lottery.Infra.CrossCutting.Storage.S3.csproj" />
   </ItemGroup>
 
 </Project>

@@ -13,5 +13,6 @@ namespace Lottery.Infra.CrossCutting.Storage.Abstractions
         Task RemoveFile(string fileName, string filePath, CancellationToken cancelationToken = default);
         Task<Stream> GetFileStream(string fileName, string filePath, CancellationToken cancelationToken = default);
         Task<IEnumerable<FileStorageListItem>> GetFileList(string prefix, CancellationToken cancelationToken = default);
+        Task<IEnumerable<FileStorageListItem>> GetFileList(CancellationToken cancelationToken = default);
     }
 }

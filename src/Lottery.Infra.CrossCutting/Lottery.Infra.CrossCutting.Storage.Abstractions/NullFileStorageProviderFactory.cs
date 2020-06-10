@@ -13,6 +13,11 @@ namespace Lottery.Infra.CrossCutting.Storage.Abstractions
             return NullFileStorage.Instance;
         }
 
+        public IFileStorage CreateFileStorage<TFileStorageProvider>(IFileStorageConfiguration fileStorageConfiguration) where TFileStorageProvider : IFileStorageProvider
+        {
+            return NullFileStorage.Instance;
+        }
+
         public void Dispose()
         {
         }
