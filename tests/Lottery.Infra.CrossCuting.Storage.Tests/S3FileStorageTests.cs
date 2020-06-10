@@ -1,17 +1,16 @@
-using Lottery.Infra.CrossCuting.Storage.Tests.Fixtures;
-using Lottery.Infra.CrossCutting.Storage;
+using Lottery.Infra.CrossCutting.Storage.Abstractions;
 using Lottery.Infra.CrossCutting.Storage.Abstractions.Models;
 using Lottery.Infra.CrossCutting.Storage.S3;
+using Lottery.Infra.CrossCutting.Storage.Tests.Fixtures;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
-using Microsoft.Extensions.DependencyInjection;
-using Lottery.Infra.CrossCutting.Storage.Abstractions;
 
-namespace Lottery.Infra.CrossCuting.Storage.Tests
+namespace Lottery.Infra.CrossCutting.Storage.Tests
 {
     public class S3FileStorageTests : IClassFixture<ServiceProviderFixture>
     {
@@ -34,9 +33,7 @@ namespace Lottery.Infra.CrossCuting.Storage.Tests
         [Fact]
         public async Task AddObject_ShouldWork()
         {
-            var s3Configuration = new S3FileStorageConfiguration { Bucket = "lotteryv2" };
-
-            var fileStorage = _fileStorageFactory.CreateFileStorage<IS3FileStorageProvider>(s3Configuration);
+            var fileStorage = _fileStorageFactory.CreateFileStorage<IS3FileStorageProvider>();
             var memoryStream = new MemoryStream();
             var fileContentText = "fileContentTest";
             var buffer = Encoding.Default.GetBytes(fileContentText);
@@ -49,8 +46,7 @@ namespace Lottery.Infra.CrossCuting.Storage.Tests
         [Fact]
         public async Task GetObject_ShouldWork()
         {
-            var s3Configuration = new S3FileStorageConfiguration { Bucket = "lotteryv2" };
-            var fileStorage = _fileStorageFactory.CreateFileStorage<IS3FileStorageProvider>(s3Configuration);
+            var fileStorage = _fileStorageFactory.CreateFileStorage<IS3FileStorageProvider>();
 
             var resultFileStream = await fileStorage.GetFileStream("test.txt", "testfolder/");
             var resultFileStreamContent = new StreamReader(resultFileStream).ReadToEnd();
@@ -61,8 +57,7 @@ namespace Lottery.Infra.CrossCuting.Storage.Tests
         [Fact]
         public async Task RemoveObject_ShouldWork()
         {
-            var s3Configuration = new S3FileStorageConfiguration { Bucket = "lotteryv2" };
-            var fileStorage = _fileStorageFactory.CreateFileStorage<IS3FileStorageProvider>(s3Configuration);
+            var fileStorage = _fileStorageFactory.CreateFileStorage<IS3FileStorageProvider>();
 
             await fileStorage.RemoveFile("test.txt", "testfolder/");
         }
@@ -70,8 +65,7 @@ namespace Lottery.Infra.CrossCuting.Storage.Tests
         [Fact]
         public async Task ListObjects_ShouldWork()
         {
-            var s3Configuration = new S3FileStorageConfiguration { Bucket = "lotteryv2" };
-            var fileStorage = _fileStorageFactory.CreateFileStorage<IS3FileStorageProvider>(s3Configuration);
+            var fileStorage = _fileStorageFactory.CreateFileStorage<IS3FileStorageProvider>();
             var fileList = await fileStorage.GetFileList();
 
             Assert.IsAssignableFrom<IEnumerable<FileStorageListItem>>(fileList);

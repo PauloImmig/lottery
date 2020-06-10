@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace Lottery.Infra.CrossCuting.Storage.Tests.Fixtures
+namespace Lottery.Infra.CrossCutting.Storage.Tests.Fixtures
 {
     public class ServiceProviderFixture
     {

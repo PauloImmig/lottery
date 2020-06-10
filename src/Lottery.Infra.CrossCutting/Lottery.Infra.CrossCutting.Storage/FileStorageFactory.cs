@@ -26,23 +26,8 @@ namespace Lottery.Infra.CrossCutting.Storage
             _configuration = configuration;
         }
 
-        public IFileStorage CreateFileStorage(IFileStorageProvider provider)
-        {
-            if (CheckDisposed())
-            {
-                throw new ObjectDisposedException(nameof(FileStorageFactory));
-            }
-
-            lock (_sync)
-            {
-                if (_fileStorage == null)
-                {
-                    _fileStorage = provider.CreateFileStorage();
-                }
-
-                return _fileStorage;
-            }
-        }
+        public IFileStorage CreateFileStorage<TFileStorageProvider>() where TFileStorageProvider : IFileStorageProvider
+            => CreateFileStorage<TFileStorageProvider>(null);
 
         public IFileStorage CreateFileStorage<TFileStorageProvider>(IFileStorageConfiguration fileStorageConfiguration) where TFileStorageProvider : IFileStorageProvider
         {
@@ -60,7 +45,7 @@ namespace Lottery.Infra.CrossCutting.Storage
                         var provider = Activator.CreateInstance(providerType, _configuration, fileStorageConfiguration) as IFileStorageProvider;
                         _fileStorage = provider.CreateFileStorage();
                         return _fileStorage;
-                    }                    
+                    }
                 }
                 return _fileStorage;
             }

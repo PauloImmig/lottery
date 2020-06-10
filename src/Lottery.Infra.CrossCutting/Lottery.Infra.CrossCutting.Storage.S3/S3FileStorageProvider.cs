@@ -9,7 +9,11 @@ namespace Lottery.Infra.CrossCutting.Storage.S3
     {
         private const string S3BucketName = "FileStorage:S3:BucketName";
         private readonly IConfiguration _configuration;
-        private readonly S3FileStorageConfiguration _fileStorageConfiguration;
+        private S3FileStorageConfiguration _fileStorageConfiguration;
+
+        public S3FileStorageProvider(IConfiguration configuration) : this(configuration, null)
+        {
+        }
 
         public S3FileStorageProvider(IConfiguration configuration, IFileStorageConfiguration fileStorageConfiguration)
         {
@@ -17,17 +21,22 @@ namespace Lottery.Infra.CrossCutting.Storage.S3
             _fileStorageConfiguration = fileStorageConfiguration as S3FileStorageConfiguration;
             if (_fileStorageConfiguration == null)
             {
-                var bucketName = configuration.GetValue<string>(S3BucketName);
-                if (string.IsNullOrWhiteSpace(bucketName))
-                {
-                    throw new ArgumentException("BucketName should be set. It can be done through IConfiguration key or IFileStorageConfiguration.", nameof(bucketName));
-                }
-
-                _fileStorageConfiguration = new S3FileStorageConfiguration
-                {
-                    Bucket = bucketName
-                };
+                LoadFileStorageConfigurationFromSettings();
             }
+        }
+        
+        private void LoadFileStorageConfigurationFromSettings()
+        {
+            var bucketName = _configuration.GetValue<string>(S3BucketName);
+            if (string.IsNullOrWhiteSpace(bucketName))
+            {
+                throw new ArgumentException("BucketName should be set. It can be done through IConfiguration key or IFileStorageConfiguration.", nameof(bucketName));
+            }
+
+            _fileStorageConfiguration = new S3FileStorageConfiguration
+            {
+                Bucket = bucketName
+            };
         }
 
         public IFileStorage CreateFileStorage()
