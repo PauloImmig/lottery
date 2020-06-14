@@ -1,15 +1,20 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using FluentValidation;
+using Lottery.Application.Behaviours;
+using Lottery.Application.Commands;
+using Lottery.Application.Configuration.Commands;
+using Lottery.Application.Validations;
+using Lottery.Infra.CrossCutting.Storage;
+using Lottery.Infra.CrossCutting.Storage.Abstractions;
+using Lottery.Infra.Data.Domain;
+using Lottery.Infra.Data.Domain.Raffles;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using System;
+using System.Reflection;
 
 namespace lottery.Api
 {
@@ -25,8 +30,22 @@ namespace lottery.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var applicationAssembly = typeof(Lottery.Application.Configuration.IMediator).GetTypeInfo().Assembly;
+
             services.AddControllers();
             services.AddCors();
+
+            services.AddTransient<IRaffleRepository, RaffleRepository>();
+            services.AddTransient<IRaffleParticipantRepository, RaffleParticipantRepository>();
+            services.AddTransient<IFileStorageFactory, FileStorageFactory>();
+
+            AssemblyScanner
+            .FindValidatorsInAssembly(applicationAssembly)
+            .ForEach(result => services.AddScoped(result.InterfaceType, result.ValidatorType));
+            
+            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidatorBehavior<, >));
+
+            services.AddMediatR(applicationAssembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

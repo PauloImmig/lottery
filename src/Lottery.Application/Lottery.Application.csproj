@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="8.6.2" />
+    <PackageReference Include="MediatR" Version="8.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Lottery.Data.Models\Lottery.Data.Models.csproj" />
+    <ProjectReference Include="..\Lottery.Infra.CrossCutting\Lottery.Infra.CrossCutting.Storage.Abstractions\Lottery.Infra.CrossCutting.Storage.Abstractions.csproj" />
+    <ProjectReference Include="..\Lottery.Infra.CrossCutting\Lottery.Infra.CrossCutting.Storage.S3\Lottery.Infra.CrossCutting.Storage.S3.csproj" />
+    <ProjectReference Include="..\Lottery.Infra.Data\Lottery.Infra.Data.csproj" />
+  </ItemGroup>
+
+</Project>

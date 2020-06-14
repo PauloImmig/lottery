@@ -4,4 +4,14 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>939035e853120ce06b1b69c1c2c209ea</UserSecretsId>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="8.0.1" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Lottery.Application\Lottery.Application.csproj" />
+    <ProjectReference Include="..\Lottery.Data.Models\Lottery.Data.Models.csproj" />
+    <ProjectReference Include="..\Lottery.Infra.CrossCutting\Lottery.Infra.CrossCutting.Storage\Lottery.Infra.CrossCutting.Storage.csproj" />
+  </ItemGroup>
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 </Project>
